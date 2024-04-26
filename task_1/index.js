@@ -1,8 +1,10 @@
-import {encoded, translations} from './data.js'
+import { encoded, translations, decodeData, getUniqueIds } from './data.js';
 
-console.log("Let's rock")
-console.log(encoded, translations)
+const decoded = decodeData(encoded, translations);
+// console.log(decoded);
 
+console.log("Let's rock");
 
+const uniqueIds = getUniqueIds(encoded, translations);
+console.log(uniqueIds);  
 
-// console.log(decoded)

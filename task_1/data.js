@@ -248,3 +248,35 @@ export const translations = {
   82226: "Фикс",
   110639: "Статья",
 };
+
+export function decodeData(encoded, translations) {
+  return encoded.map(item => {
+    const decodedItem = {};
+    for (const key in item) {
+      if (Object.hasOwnProperty.call(item, key)) {
+        if (translations[item[key]] !== undefined) {
+          decodedItem[key] = translations[item[key]];
+        } else {
+          decodedItem[key] = item[key];
+        }
+      }
+    }
+    return decodedItem;
+  });
+}
+
+export function getUniqueIds(encoded, translations) {
+  const missingIds = [];
+
+  encoded.forEach(item => {
+    Object.entries(item).forEach(([key, value]) => {
+      if (!Object.hasOwnProperty.call(translations, value)) {
+        missingIds.push({ [key]: value});
+      }
+    });
+  });
+
+  return Array.from(missingIds);
+}
+
+
