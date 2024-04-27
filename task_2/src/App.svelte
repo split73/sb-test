@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {round} from 'mathjs'
+  import {round} from 'mathjs';
   import axios from 'axios';
 
   $: selected1 = "RUB"
