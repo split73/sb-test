@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import {round} from 'mathjs';
   import axios from 'axios';
+
+  const api_url = "https://v6.exchangerate-api.com/v6/91130d58e95fda8b75eec1ae"
 
   $: selected1 = "RUB"
   $: selected2 = "RUB"
@@ -13,9 +16,23 @@
 
   $: flag = true
 
+  
+  async function getCodes(){
+    let res = await axios.get(`${api_url}/codes`)
+    return [...res.data.supported_codes]
+  }
+
+  let codes = []
+
+  onMount(async () => {
+    codes = await getCodes();
+    console.log(codes)
+  });
+  
+
   async function getCurrency(currency1: string, currency2: string){
-    let response = await axios.get(`https://open.er-api.com/v6/latest/${currency1}`)
-    return response.data.rates[currency2]
+    let response = await axios.get(`${api_url}/latest/${currency1}`)
+    return response.data.conversion_rates[currency2]
   }
 
   async function handleCurrent1(e){
@@ -79,6 +96,9 @@
         <option value="RUB">RUB</option>
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
+        {#each codes as code}
+          <option value={code[0]}>{code[0]}</option>
+        {/each}
       </select>
       <input type="number" value={result1} on:change={res1}>
     </div>
@@ -88,12 +108,11 @@
         <option value="RUB">RUB</option>
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
+        {#each codes as code}
+          <option value={code[0]}>{code[0]}</option>
+        {/each}
       </select>
       <input type="number" value={result2} on:change={res2}>
     </div>
   </div>
 </main>
-
-<style>
-
-</style>
