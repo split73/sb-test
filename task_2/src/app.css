@@ -26,18 +26,32 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: clamp(1.625rem, 3vw, 2rem);
   line-height: 1.1;
 }
 
-.card {
-  padding: 2em;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.section__card {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
 }
 
 #app {
@@ -50,8 +64,8 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
@@ -66,15 +80,70 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input,
+select,
+.input-placeholder {
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid rgb(25, 25, 25);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.input-placeholder {
+  border: none;
+  position: absolute;
+  left: 0.125rem;
+}
+
+input {
+  padding: 0.3rem 1.5rem;
+}
+
+input:focus,
+input:focus-visible {
+  outline: 4px auto #646cff;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+select {
+  width: 5rem;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
   }
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 900px) {
+  .section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  #app {
+    padding: 2rem 0.5rem;
+  }
+  input {
+    width: 30vw;
   }
 }
