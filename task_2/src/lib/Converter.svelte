@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CurrencyInput from "./components/CurrencyInput.svelte";
 
 	let firstCurrencyAmount = 0;
 	let secondCurrencyAmount = 0;
@@ -47,7 +46,7 @@
 
 {#await firstExchangeRates(firstSelectedCurrency)}
 	<select>
-		<option>awaiting...</option>
+		<option>fetching...</option>
 	</select>
 	<input />
 {:then data}
@@ -66,12 +65,12 @@
 		on:input={() => converte(firstCurrencyAmount, secondCurrencyAmount, 'secondToFirst')}
 	/>
 {:catch error}
-	<p>oh noes.</p>
+	<p>error</p>
 {/await}
 
 {#await secondExchangeRates(secondSelectedCurrency)}
 	<select>
-		<option>awaiting...</option>
+		<option>fetching...</option>
 	</select>
 	<input />
 {:then data}
@@ -90,6 +89,6 @@
 		on:input={() => converte(firstCurrencyAmount, secondCurrencyAmount, 'firstToSecond')}
 	/>
 {:catch error}
-	<p>oh noes.</p>
+	<p>error</p>
 {/await}
 
